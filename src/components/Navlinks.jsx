@@ -10,25 +10,25 @@ function Navlinks() {
         >
             <NavLink
                 className={({ isActive }) =>
-                    `${isActive ? "" : ""} border-[1px] 
+                    `${isActive ? "bg-transparent" : ""} border-[1px] 
                 px-4 rounded py-1 bg-zinc-700
                 `}
                 to='/all'>All</NavLink>
             <NavLink
                 className={({ isActive }) =>
-                    `${isActive ? "" : ""} border-[1px] 
+                    `${isActive ? "bg-transparent" : ""} border-[1px] 
                 px-4 rounded py-1 bg-zinc-700
                 `}
                 to='/movies'>Movies</NavLink>
             <NavLink
                 className={({ isActive }) =>
-                    `${isActive ? "" : ""} border-[1px] 
+                    `${isActive ? "bg-transparent" : ""} border-[1px] 
                 px-3 rounded py-1 bg-zinc-700
                 `}
                 to='/tvshows'>TV Shows</NavLink>
             <NavLink
                 className={({ isActive }) =>
-                    `${isActive ? "" : ""} border-[1px] 
+                    `${isActive ? "bg-transparent" : ""} border-[1px] 
                 px-4 rounded py-1 bg-zinc-700
                 `}
                 to='/watchlist'>WatchList</NavLink>

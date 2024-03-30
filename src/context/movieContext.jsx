@@ -23,10 +23,10 @@ export const MovieContextProvider = ({ children }) => {
         const response = await fetch(url)
         const result = await response.json()
         // console.log(result.Search)
+        navigate('/all')
         setData(result.Search)
         setSearchParam('')
         setLoading(false)
-        navigate('/all')
     }
 
     const handleSubmit = (e) => {
