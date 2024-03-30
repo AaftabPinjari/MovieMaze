@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 function Navlinks() {
     return (
         <div
-            className="flex items-center text-xs md:text-sm  justify-center gap-3 
+            className="flex items-center text-xs lg:text-sm  justify-center gap-3 
             p-4 md:px-16 lg:px-24 xl:px-48
             
             "
@@ -23,7 +23,7 @@ function Navlinks() {
             <NavLink
                 className={({ isActive }) =>
                     `${isActive ? "" : ""} border-[1px] 
-                px-4 rounded py-1 bg-zinc-700
+                px-3 rounded py-1 bg-zinc-700
                 `}
                 to='/tvshows'>TV Shows</NavLink>
             <NavLink
