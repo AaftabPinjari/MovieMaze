@@ -10,7 +10,7 @@ function Navbar() {
     const { handleSubmit, searchParam, setSearchParam } = useMovie()
 
     return (
-        <div className="h-[10vh] p-4 md:px-16 lg:px-24 xl:px-48 flex justify-between">
+        <div className="h-[10vh] p-4 md:px-16 lg:px-24 xl:px-48 flex items-center justify-between">
             <h1 className="font-serif w-1/3 text-red-500 font-semibold text-2xl md:text-3xl lg:text-4xl
             
             "><Link to="/">FILMIE</Link></h1>

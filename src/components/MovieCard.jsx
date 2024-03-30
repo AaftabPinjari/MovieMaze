@@ -1,21 +1,32 @@
 /* eslint-disable react/prop-types */
 import { FaPlus } from "react-icons/fa6"
+import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom"
+import useMovie from "../context/movieContext"
+
 
 function MovieCard({ movie }) {
+    const { handleAddToWatchlist, watchlist } = useMovie()
     return (
-        <div className=" h-[500px] flex flex-col items-center justify-between my-2">
+        <div className=" h-[400px] flex flex-col items-center justify-between my-2">
             <img
-                className="h-[350px] w-[250px] rounded-lg"
+                className="h-[300px] w-[200px] rounded-lg"
                 src={movie.Poster} />
             <h1 className="text-xl font-serif">{movie.Title} : {movie.Year}</h1>
             <div className="flex justify-between gap-4 font-semibold mt-3">
                 <Link
                     className=" border-[1px] px-6 py-1 rounded bg-white text-black  "
-                    to={`/movie/${movie.imdbID}`}>Details</Link>
-                <Link
-                    className="flex items-center gap-1 border-[1px] px-6 py-1 rounded bg-zinc-700 "
-                    to="/"><FaPlus />My List</Link>
+                    to={`/${movie.imdbID}`}>Details</Link>
+                <button
+                    onClick={() => handleAddToWatchlist(movie)}
+                    className="flex items-center gap-2 border-[1px] px-6 py-1 rounded bg-zinc-700 "
+                >
+                    {watchlist.findIndex(item => item.imdbID === movie.imdbID) === -1 ?
+                        (<><FaPlus />MyList</>)
+                        : (<><AiOutlineDelete />Remove</>)
+
+                    }
+                </button>
             </div>
         </div>
     )

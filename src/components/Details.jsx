@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { FaPlus } from "react-icons/fa6"
-import { Link } from "react-router-dom"
+import { AiOutlineDelete } from "react-icons/ai";
+import useMovie from "../context/movieContext"
 
-function MovieDetails({ movie }) {
+function Details({ movie }) {
+    const { handleAddToWatchlist, watchlist } = useMovie()
     return (
         <>
             <div className="min-h-screen flex flex-col md:flex-row gap-4 md:gap-10 items-center justify-center p-4 md:px-24 lg:px-48">
@@ -35,10 +37,17 @@ function MovieDetails({ movie }) {
                         </div>
 
                     </div>
-                    <Link
+                    <button
+                        onClick={() => handleAddToWatchlist(movie)}
                         className="flex items-center ml-4  gap-1   border-[1px] px-8 py-1
         rounded bg-zinc-700 font-semibold "
-                        to="/movies"><FaPlus />My List</Link>
+                    >
+                        {watchlist.findIndex(item => item.imdbID === movie.imdbID) === -1 ?
+                            (<><FaPlus />MyList</>)
+                            : (<><AiOutlineDelete />Remove</>)
+
+                        }
+                    </button>
 
                 </div>
             </div>
@@ -46,4 +55,4 @@ function MovieDetails({ movie }) {
     )
 }
 
-export default MovieDetails
+export default Details

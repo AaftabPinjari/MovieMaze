@@ -10,56 +10,60 @@ export const MovieContextProvider = ({ children }) => {
     const navigate = useNavigate()
 
     const [searchParam, setSearchParam] = useState('')
-    const [loading, setLoading] = useState(true)
-    const [movies, setMovies] = useState([])
-    const [defaultMovie, setDefaultMovie] = useState('avengers')
-    const [movieDetails, setMovieDetails] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState([])
+    const [details, setDetails] = useState({})
     const [watchlist, setWatchlist] = useState([])
 
 
-    const titleURL = `https://omdbapi.com/?t=${defaultMovie}&apikey=${import.meta.env.VITE_OMDB_API_KEY}`
-    const searchURL = `https://omdbapi.com/?s=${searchParam}&type=movie&apikey=${import.meta.env.VITE_OMDB_API_KEY}`
+    const searchURL = `https://omdbapi.com/?s=${searchParam}&apikey=${import.meta.env.VITE_OMDB_API_KEY}`
 
-    const fetchMovies = async (url) => {
+    const fetchData = async (url) => {
         setLoading(true)
         const response = await fetch(url)
         const result = await response.json()
-        if (url === titleURL) {
-            // console.log(result)
-            setDefaultMovie(result)
-            // setSearchParam('')
-            setLoading(false)
-        } else {
-            console.log(result.Search)
-            setMovies(result.Search)
-            setSearchParam('')
-            setLoading(false)
-            navigate("/movies")
-        }
+        // console.log(result.Search)
+        setData(result.Search)
+        setSearchParam('')
+        setLoading(false)
+        navigate('/all')
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetchMovies(searchURL);
+        fetchData(searchURL);
     }
 
-    // console.log(movies)
+    const handleAddToWatchlist = (currItem) => {
+        let copyWatchlist = [...watchlist]
+        const index = copyWatchlist.findIndex(item => item.imdbID === currItem.imdbID)
 
-    // useEffect(() => {
-    //     fetchMovies(searchURL)
-    // }, [])
+        if (index === -1) {
+            copyWatchlist.push(currItem)
+        } else {
+            copyWatchlist.splice(index, 1)
+        }
+        setWatchlist(copyWatchlist)
+        // navigate("/watchlist")
+    }
 
+    //local storage
     useEffect(() => {
-        fetchMovies(titleURL)
+        const watchlist = JSON.parse(localStorage.getItem("watchlist"))
+        if (watchlist && watchlist.length > 0) {
+            setWatchlist(watchlist)
+        }
     }, [])
 
-
+    useEffect(() => {
+        localStorage.setItem("watchlist", JSON.stringify(watchlist))
+    }, [watchlist])
 
 
     return <MovieContext.Provider value={{
-        searchParam, setSearchParam,
-        handleSubmit, movies, loading, setLoading, defaultMovie,
-        movieDetails, setMovieDetails
+        searchParam, setSearchParam, watchlist,
+        handleSubmit, data, loading, setLoading,
+        details, setDetails, handleAddToWatchlist
     }}>
         {children}
     </MovieContext.Provider>

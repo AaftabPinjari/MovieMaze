@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import useMovie from '../context/movieContext';
 import Loader from '../components/Loader';
-import MovieDetails from '../components/MovieDetails';
+import MovieDetails from '../components/Details';
 
 
 
@@ -13,18 +13,18 @@ function Details() {
     const params = useParams();
     console.log(params)
 
-    const { loading, setLoading, movieDetails, setMovieDetails } = useMovie();
+    const { loading, setLoading, details, setDetails } = useMovie();
 
     const idUrl = `https://omdbapi.com/?i=${params.id}&apikey=${import.meta.env.VITE_OMDB_API_KEY}`
 
-    const fetchMovieDetails = async (url) => {
+    const fetchDetails = async (url) => {
         try {
             setLoading(true)
             const res = await fetch(url)
             const result = await res.json()
             // console.log(result)
             if (result) {
-                setMovieDetails(result)
+                setDetails(result)
                 setLoading(false)
 
             }
@@ -37,14 +37,14 @@ function Details() {
     }
 
     useEffect(() => {
-        fetchMovieDetails(idUrl)
+        fetchDetails(idUrl)
     }, [idUrl])
 
     if (loading) return <Loader />
 
     return (
         <div>
-            <MovieDetails movie={movieDetails} />
+            <MovieDetails movie={details} />
         </div>
     )
 }

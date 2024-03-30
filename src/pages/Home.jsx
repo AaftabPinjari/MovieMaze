@@ -1,18 +1,13 @@
-import Loader from "../components/Loader"
-import useMovie from "../context/movieContext"
-import MovieDetails from "../components/MovieDetails";
 
 function Home() {
 
-    const { loading, defaultMovie } = useMovie()
 
-    console.log(defaultMovie)
-    if (loading) return <Loader />
 
     return (
         <>
-            <h1 className='text-center text-3xl mt-2 font-serif font-bold'>Movie of the Day</h1>
-            <MovieDetails movie={defaultMovie} />
+            <section className="flex h-[80vh] justify-center items-center">
+                <h1 className=' sm:text-xl md:text-2xl font-bold'>Search For Your Favorite Movies and Tv Shows!</h1>
+            </section>
         </>
     )
 }
