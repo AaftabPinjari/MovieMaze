@@ -1,11 +1,15 @@
 import { CiSearch } from "react-icons/ci";
 import useMovie from "../context/movieContext";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
+
 
 
 
 
 function Navbar() {
+
+const location  = useLocation()
+    console.log(location.pathname)
 
     const { handleSubmit, searchParam, setSearchParam } = useMovie()
 
